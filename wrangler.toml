@@ -1,7 +1,7 @@
 name = "x-elixi-under-construction"
 compatibility_date = "2026-01-16"
 
-# This tells Cloudflare to serve the files inside the 'public' folder
+# The "binding" line was removed. 
+# This is all you need for a static HTML site:
 [assets]
 directory = "./public"
-binding = "ASSETS"
