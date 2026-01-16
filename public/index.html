@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>X-έλιξη — Υπό Κατασκευή</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -17,59 +16,37 @@
       --muted: #9ca3af;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
       color: var(--text);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden; /* Prevents scrollbars from the animation */
+      overflow: hidden;
       background-color: var(--bg);
     }
 
-    /* --- NEW BACKGROUND & SHINE STYLES --- */
-    
+    /* BACKGROUND LAYER */
     .bg-layer {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* Puts it behind the content */
-      
-      /* UPDATE THIS LINE with your actual image filename */
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
       background-image: url('logo-background.jpg'); 
-      
-      /* 'cover' fills screen. Use 'contain' if you want the whole logo visible */
       background-size: cover; 
       background-position: center;
       background-repeat: no-repeat;
     }
-
-    /* The Shine Effect Overlay */
+    
     .bg-layer::after {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%; /* Wider than screen to allow movement */
-      height: 100%;
-      
-      /* Subtle white shine gradient */
-      background: linear-gradient(
-        110deg, 
-        rgba(255, 255, 255, 0) 30%, 
-        rgba(255, 255, 255, 0.5) 50%, /* Adjust 0.15 for brightness */
-        rgba(255, 255, 255, 0) 70%
-      );
-      
-      animation: waveShine 6s infinite linear;
+      top: 0; left: 0; width: 200%; height: 100%;
+      background: linear-gradient(110deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 70%);
+      animation: waveShine 4s infinite linear;
       pointer-events: none;
     }
 
@@ -78,21 +55,19 @@
       100% { transform: translateX(50%); }
     }
 
-    /* --- EXISTING CARD STYLES --- */
-
+    /* CARD CONTAINER */
     .container {
       text-align: center;
-      /* Added slightly more blur to make text readable over the logo */
       background: linear-gradient(180deg, rgba(17, 26, 46, 0.7), rgba(17, 26, 46, 0.4));
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 48px 32px;
       max-width: 480px;
       width: 90%;
-      backdrop-filter: blur(12px); /* Increased blur for legibility */
+      backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      z-index: 1; /* Ensures text sits on top of background */
+      z-index: 1;
     }
 
     .logo {
@@ -101,17 +76,10 @@
       letter-spacing: -0.04em;
       margin-bottom: 12px;
     }
-
     .logo span {
       background: linear-gradient(135deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: var(--muted);
-      margin-bottom: 32px;
     }
 
     .status {
@@ -124,15 +92,78 @@
       margin-bottom: 24px;
     }
 
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* --- NEW FORM STYLES --- */
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="email"] {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.2);
+      color: white;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="email"]:focus {
+      border-color: var(--primary);
+      background: rgba(0,0,0,0.4);
+    }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #0b1220;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    #msg {
+      margin-top: 12px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+    .success-msg { color: var(--accent); }
+    .error-msg { color: #ef4444; }
+
     .footer {
       font-size: 13px;
       color: var(--muted);
       margin-top: 32px;
     }
-
-    .footer span {
-      color: var(--text);
-    }
+    .footer span { color: var(--text); }
   </style>
 </head>
 <body>
@@ -140,23 +171,58 @@
   <div class="bg-layer"></div>
 
   <div class="container">
-    <div class="logo">
-      X-<span>έλιξη</span>
-    </div>
+    <div class="logo">X-<span>έλιξη</span></div>
 
-    <div class="status">
-      Υπό κατασκευή
-    </div>
+    <div class="status">Υπό κατασκευή</div>
 
     <div class="subtitle">
       Η πλατφόρμα εξελίσσεται.<br/>
-      Σύντομα κοντά σας.
+      Αφήστε το email σας για να ενημερωθείτε πρώτοι.
     </div>
+
+    <form name="submit-to-google-sheet" class="newsletter-form">
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Το email σας..." required>
+        <button type="submit">Εγγραφή</button>
+      </div>
+      <div id="msg"></div>
+    </form>
 
     <div class="footer">
       © <span>X-έλιξη</span> - εξέλιξη στην πράξη
     </div>
   </div>
+
+  <script>
+    // --- REPLACE THIS URL WITH YOUR GOOGLE SCRIPT URL ---
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbw2-yK9iatCcWNp8E3PNy4xIUPeZ63v8vPOQznTbONEtN3rYB7DYdngXD1XK_M4GZwe2A/exec';
+    
+    const form = document.forms['submit-to-google-sheet'];
+    const msg = document.getElementById("msg");
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      btn.innerHTML = "Αποστολή...";
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          msg.innerHTML = "Ευχαριστούμε! Η εγγραφή ολοκληρώθηκε.";
+          msg.className = "success-msg";
+          form.reset();
+          btn.innerHTML = "Εγγραφή";
+          btn.disabled = false;
+          setTimeout(() => { msg.innerHTML = ""; }, 5000);
+        })
+        .catch(error => {
+          msg.innerHTML = "Σφάλμα! Προσπαθήστε ξανά.";
+          msg.className = "error-msg";
+          btn.innerHTML = "Εγγραφή";
+          btn.disabled = false;
+        });
+    });
+  </script>
 
 </body>
 </html>
