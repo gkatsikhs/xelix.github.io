@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>X-έλιξη — Υπό Κατασκευή</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -25,24 +24,75 @@
     body {
       margin: 0;
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, #122042, var(--bg));
       color: var(--text);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden; /* Prevents scrollbars from the animation */
+      background-color: var(--bg);
     }
+
+    /* --- NEW BACKGROUND & SHINE STYLES --- */
+    
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Puts it behind the content */
+      
+      /* UPDATE THIS LINE with your actual image filename */
+      background-image: url('logo-background.jpg'); 
+      
+      /* 'cover' fills screen. Use 'contain' if you want the whole logo visible */
+      background-size: cover; 
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* The Shine Effect Overlay */
+    .bg-layer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%; /* Wider than screen to allow movement */
+      height: 100%;
+      
+      /* Subtle white shine gradient */
+      background: linear-gradient(
+        110deg, 
+        rgba(255, 255, 255, 0) 30%, 
+        rgba(255, 255, 255, 0.15) 50%, /* Adjust 0.15 for brightness */
+        rgba(255, 255, 255, 0) 70%
+      );
+      
+      animation: waveShine 6s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes waveShine {
+      0% { transform: translateX(-150%); }
+      100% { transform: translateX(50%); }
+    }
+
+    /* --- EXISTING CARD STYLES --- */
 
     .container {
       text-align: center;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
-      border: 1px solid rgba(255,255,255,0.08);
+      /* Added slightly more blur to make text readable over the logo */
+      background: linear-gradient(180deg, rgba(17, 26, 46, 0.7), rgba(17, 26, 46, 0.4));
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 48px 32px;
       max-width: 480px;
       width: 90%;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      backdrop-filter: blur(12px); /* Increased blur for legibility */
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      z-index: 1; /* Ensures text sits on top of background */
     }
 
     .logo {
@@ -86,6 +136,8 @@
   </style>
 </head>
 <body>
+
+  <div class="bg-layer"></div>
 
   <div class="container">
     <div class="logo">
