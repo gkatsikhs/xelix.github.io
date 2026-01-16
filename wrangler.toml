@@ -1,0 +1,7 @@
+name = "x-elixi-under-construction"
+compatibility_date = "2026-01-16"
+
+# This tells Cloudflare to serve the files inside the 'public' folder
+[assets]
+directory = "./public"
+binding = "ASSETS"
